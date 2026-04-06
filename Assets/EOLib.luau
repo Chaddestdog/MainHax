@@ -324,10 +324,12 @@ toggleClass.new = function(tab, flag, options)
         flag = {
             _type = 'toggle';
             value = nil;
+            callback = options.callback or function() end;
             setEnabled = function(self, value)
                 if (value == nil) then value = not self.value end;
                 self.element.enabled = value;
                 self.value = value;
+                self.callback(value);
             end;
             element = nil;
         };
@@ -360,7 +362,6 @@ end;
 
 -- tabClass methods
 do
-  
     function tabClass:addToggle(flag, options)
         return toggleClass.new(self, flag, options);
     end;
